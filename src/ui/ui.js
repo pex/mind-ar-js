@@ -1,7 +1,7 @@
-require('./ui.css');
-const loadingHTML = require('./loading.html').default;
-const compatibilityHTML = require('./compatibility.html').default;
-const scanningHTML = require('./scanning.html').default;
+import './ui.css';
+import loadingHTML from './loading.html';
+import compatibilityHTML from './compatibility.html';
+import scanningHTML from './scanning.html';
 
 class UI {
   constructor({ uiLoading, uiScanning, uiError }) {
@@ -10,24 +10,20 @@ class UI {
     } else if (uiLoading !== 'no') {
       this.loadingModal = document.querySelector(uiLoading);
     }
-
     if (uiError === 'yes') {
       this.compatibilityModal = this._loadHTML(compatibilityHTML);
     } else if (uiError !== 'no') {
       this.compatibilityModal = document.querySelector(uiError);
     }
-
     if (uiScanning === 'yes') {
       this.scanningMask = this._loadHTML(scanningHTML);
     } else if (uiScanning !== 'no') {
       this.scanningMask = document.querySelector(uiScanning);
     }
-
     this.hideLoading();
     this.hideCompatibility();
     this.hideScanning();
   }
-
   showLoading() {
     if (!this.loadingModal) return;
     this.loadingModal.classList.remove('hidden');
@@ -52,7 +48,6 @@ class UI {
     if (!this.scanningMask) return;
     this.scanningMask.classList.add('hidden');
   }
-
   _loadHTML(html) {
     const e = document.createElement('template');
     e.innerHTML = html.trim();
@@ -61,7 +56,7 @@ class UI {
     return rootNode;
   }
 }
-
-module.exports = {
+export { UI };
+export default {
   UI,
 };
